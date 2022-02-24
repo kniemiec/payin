@@ -25,7 +25,8 @@ class DefaultLockServiceTest {
         Mono<LockResponse> response = lockService.lock(validRequest);
 
         StepVerifier.create(response)
-                .expectNextMatches( lockResponse -> lockResponse.getStatus().equals(LockStatus.LOCKED));
+                .expectNextMatches( lockResponse -> lockResponse.getStatus().equals(LockStatus.LOCKED))
+                .verifyComplete();
     }
 
     @Test
@@ -34,6 +35,7 @@ class DefaultLockServiceTest {
         Mono<LockResponse> response = lockService.lock(validRequest);
 
         StepVerifier.create(response)
-                .expectNextMatches( lockResponse -> lockResponse.getStatus().equals(LockStatus.LOCK_FAILED));
+                .expectNextMatches( lockResponse -> lockResponse.getStatus().equals(LockStatus.LOCKED))
+                .verifyComplete();
     }
 }

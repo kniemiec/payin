@@ -1,9 +1,11 @@
 package com.kniemiec.soft.payin.controllers;
 
 import com.kniemiec.soft.payin.controllers.dto.CaptureRequest;
+import com.kniemiec.soft.payin.controllers.dto.CaptureResponse;
 import com.kniemiec.soft.payin.controllers.dto.LockRequest;
 import com.kniemiec.soft.payin.controllers.dto.LockResponse;
 import com.kniemiec.soft.payin.model.PayInStatus;
+import com.kniemiec.soft.payin.services.Capture;
 import com.kniemiec.soft.payin.services.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,11 @@ public class PayInController {
 
     private Lock lockService;
 
-    public PayInController(Lock lockService){
+    private Capture captureService;
+
+    public PayInController(Lock lockService, Capture captureService){
         this.lockService = lockService;
+        this.captureService = captureService;
     }
 
     @PostMapping("/lock")
@@ -36,10 +41,10 @@ public class PayInController {
         return lockService.lock(lockRequest);
     }
 
-//    @PostMapping("/capture")
-//    public Mono<PayInStatus> capture(@RequestBody CaptureRequest captureRequest){
-//
-//    }
+    @PostMapping("/capture")
+    public Mono<CaptureResponse> capture(@RequestBody CaptureRequest captureRequest){
+        return captureService.capture(captureRequest);
+    }
 
     @GetMapping(value = "/statuses",  produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<PayInStatus> statues(){

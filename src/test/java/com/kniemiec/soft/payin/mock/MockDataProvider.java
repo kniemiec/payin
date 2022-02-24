@@ -1,5 +1,6 @@
 package com.kniemiec.soft.payin.mock;
 
+import com.kniemiec.soft.payin.controllers.dto.CaptureRequest;
 import com.kniemiec.soft.payin.controllers.dto.LockRequest;
 import com.kniemiec.soft.payin.model.Money;
 
@@ -14,5 +15,9 @@ public class MockDataProvider {
 
     public static LockRequest prepareInValidLockRequest(){
         return new LockRequest("senderId", new Money("PLN", BigDecimal.valueOf(0)));
+    }
+
+    public static CaptureRequest prepareValidCaptureRequest(String lockId) {
+        return new CaptureRequest(lockId);
     }
 }
