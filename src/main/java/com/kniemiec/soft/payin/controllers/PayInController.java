@@ -3,9 +3,8 @@ package com.kniemiec.soft.payin.controllers;
 import com.kniemiec.soft.payin.controllers.dto.CaptureRequest;
 import com.kniemiec.soft.payin.controllers.dto.LockRequest;
 import com.kniemiec.soft.payin.controllers.dto.LockResponse;
-import com.kniemiec.soft.payin.controllers.dto.LockStatus;
 import com.kniemiec.soft.payin.model.PayInStatus;
-import com.kniemiec.soft.payin.model.Status;
+import com.kniemiec.soft.payin.services.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -17,8 +16,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
-import java.util.UUID;
-
 
 @RestController
 public class PayInController {
@@ -27,19 +24,16 @@ public class PayInController {
 
     private Sinks.Many<PayInStatus> payInStatuses = Sinks.many().replay().all();
 
+    private Lock lockService;
+
+    public PayInController(Lock lockService){
+        this.lockService = lockService;
+    }
+
     @PostMapping("/lock")
     public Mono<LockResponse> lock(@RequestBody LockRequest lockRequest){
         logger.info("Request received: {}",lockRequest);
-        String lockId = UUID.randomUUID().toString();
-        if(lockRequest.getMoney().getValue().signum() > 0) {
-            return Mono.just(new LockResponse( lockId,  LockStatus.LOCKED))
-//                    .doOnNext( status -> payInStatuses.tryEmitNext(status))
-                    .log();
-        } else {
-            return Mono.just(new LockResponse( lockId,  LockStatus.LOCK_FAILED))
-//                    .doOnNext( status -> payInStatuses.tryEmitNext(status))
-                    .log();
-        }
+        return lockService.lock(lockRequest);
     }
 
 //    @PostMapping("/capture")

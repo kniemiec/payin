@@ -6,10 +6,12 @@ import com.kniemiec.soft.payin.controllers.dto.LockResponse;
 import com.kniemiec.soft.payin.controllers.dto.LockStatus;
 import com.kniemiec.soft.payin.model.Money;
 import com.kniemiec.soft.payin.controllers.PayInController;
+import com.kniemiec.soft.payin.services.Lock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -19,7 +21,8 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@WebFluxTest( controllers = PayInController.class)
+//@WebFluxTest( controllers = PayInController.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 public class PayInControllerTest {
 
