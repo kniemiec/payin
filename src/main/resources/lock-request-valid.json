@@ -1,0 +1,7 @@
+{
+  "senderId": "sender1",
+  "money": {
+    "value": 100,
+    "currency": "PLN"
+  }
+}
