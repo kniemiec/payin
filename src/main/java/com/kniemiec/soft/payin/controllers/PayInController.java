@@ -9,7 +9,9 @@ import com.kniemiec.soft.payin.services.Capture;
 import com.kniemiec.soft.payin.services.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +38,9 @@ public class PayInController {
     }
 
     @PostMapping("/lock")
-    public Mono<LockResponse> lock(@RequestBody LockRequest lockRequest){
+    public ResponseEntity<Mono<LockResponse>> lock(@RequestBody LockRequest lockRequest){
         logger.info("Request received: {}",lockRequest);
-        return lockService.lock(lockRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(lockService.lock(lockRequest));
     }
 
     @PostMapping("/capture")
