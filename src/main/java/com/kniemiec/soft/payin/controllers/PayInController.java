@@ -44,8 +44,8 @@ public class PayInController {
     }
 
     @PostMapping("/capture")
-    public Mono<CaptureResponse> capture(@RequestBody CaptureRequest captureRequest){
-        return captureService.capture(captureRequest);
+    public ResponseEntity<Mono<CaptureResponse>> capture(@RequestBody CaptureRequest captureRequest){
+        return ResponseEntity.ok(captureService.capture(captureRequest));
     }
 
     @GetMapping(value = "/statuses",  produces = MediaType.APPLICATION_NDJSON_VALUE)

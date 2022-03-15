@@ -58,7 +58,7 @@ class DefaultCaptureServiceTest {
 
         // then
         StepVerifier.create(response)
-                .expectNextMatches(captureResponse -> captureResponse.getCaptureId().equals(lockId) && captureResponse.getStatus().equals(CaptureStatus.CAPTURED))
+                .expectNextMatches(captureResponse -> captureResponse.getLockId().equals(lockId) && captureResponse.getStatus().equals(CaptureStatus.CAPTURED))
                 .verifyComplete();
     }
 
@@ -74,7 +74,7 @@ class DefaultCaptureServiceTest {
 
         // then
         StepVerifier.create(response)
-                .expectNextMatches(captureResponse -> captureResponse.getCaptureId().equals(lockId) && captureResponse.getStatus().equals(CaptureStatus.FAILED))
+                .expectNextMatches(captureResponse -> captureResponse.getLockId().equals(lockId) && captureResponse.getStatus().equals(CaptureStatus.FAILED))
                 .verifyComplete();
     }
 

@@ -12,13 +12,9 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.util.UriBuilder;
 import reactor.test.StepVerifier;
 
-import java.net.URI;
-import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,7 +95,7 @@ public class PayinIT {
                 .expectBody(CaptureResponse.class)
                 .consumeWith( captureResponseEntityExchangeResult -> {
                     assertEquals(captureResponseEntityExchangeResult.getResponseBody().getStatus(), CaptureStatus.CAPTURED);
-                    assertEquals(captureResponseEntityExchangeResult.getResponseBody().getCaptureId(), lockId);
+                    assertEquals(captureResponseEntityExchangeResult.getResponseBody().getLockId(), lockId);
                 });
     }
 
@@ -136,7 +132,7 @@ public class PayinIT {
                 .expectBody(CaptureResponse.class)
                 .consumeWith( captureResponseEntityExchangeResult -> {
                     assertEquals(captureResponseEntityExchangeResult.getResponseBody().getStatus(), CaptureStatus.FAILED);
-                    assertNotEquals(captureResponseEntityExchangeResult.getResponseBody().getCaptureId(), lockId);
+                    assertNotEquals(captureResponseEntityExchangeResult.getResponseBody().getLockId(), lockId);
                 });
 
     }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CaptureResponse {
 
-    String captureId;
+    String lockId;
     CaptureStatus status;
 
     public static CaptureResponse from(PayInStatus payInStatus){
