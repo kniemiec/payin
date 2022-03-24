@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class LockRequest {
 
     String transferId;
-
     Money money;
 
     public PayInStatus toPayInStatus(String lockId){

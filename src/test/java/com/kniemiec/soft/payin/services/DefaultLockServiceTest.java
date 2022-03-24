@@ -7,8 +7,10 @@ import com.kniemiec.soft.payin.data.PayInStatusRepository;
 import com.kniemiec.soft.payin.mock.MockDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -18,7 +20,8 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@DirtiesContext
+@DataMongoTest
 @ActiveProfiles("test")
 class DefaultLockServiceTest {
 
