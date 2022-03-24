@@ -7,7 +7,6 @@ import com.kniemiec.soft.payin.controllers.dto.LockStatus;
 import com.kniemiec.soft.payin.model.Money;
 import com.kniemiec.soft.payin.services.Lock;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,9 +58,7 @@ public class PayInControllerTest {
                 .is2xxSuccessful()
                 .returnResult(LockResponse.class)
                 .consumeWith(
-                        response -> {
-                            assertEquals(response.getResponseBody().blockFirst().getStatus(), LockStatus.LOCKED);
-                        }
+                        response -> assertEquals(response.getResponseBody().blockFirst().getStatus(), LockStatus.LOCKED)
                 );
     }
 
@@ -88,9 +85,7 @@ public class PayInControllerTest {
                 .is2xxSuccessful()
                 .returnResult(LockResponse.class)
                 .consumeWith(
-                        response -> {
-                            assertEquals(response.getResponseBody().blockFirst().getStatus(), LockStatus.LOCK_FAILED);
-                        }
+                        response -> assertEquals(response.getResponseBody().blockFirst().getStatus(), LockStatus.LOCK_FAILED)
                 );
     }
 }
