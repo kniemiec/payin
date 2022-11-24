@@ -9,6 +9,9 @@ import com.kniemiec.soft.payin.services.Capture;
 import com.kniemiec.soft.payin.services.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,9 @@ public class PayInController {
 
     private Capture captureService;
 
+    @Autowired
+    private Tracer tracer;
+
     public PayInController(Lock lockService, Capture captureService){
         this.lockService = lockService;
         this.captureService = captureService;
@@ -40,6 +46,11 @@ public class PayInController {
     @PostMapping("/lock")
     public ResponseEntity<Mono<LockResponse>> lock(@RequestBody LockRequest lockRequest){
         logger.info("Request received: {}",lockRequest);
+        Span span = tracer.currentSpan();
+        if (span != null) {
+            logger.info("Trace ID {}", span.context().traceId());
+            logger.info("Span ID {}", span.context().spanId());
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(lockService.lock(lockRequest));
     }
 

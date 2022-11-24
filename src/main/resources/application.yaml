@@ -1,7 +1,9 @@
-
+spring:
+  application:
+    name: PayIn service
 
 server:
   port: 8090
 logging:
   level:
-    root: debug
+    root: info
