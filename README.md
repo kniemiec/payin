@@ -1,8 +1,8 @@
-Payment service client implmeentation in Reactor.
+Fictional payment service client implementation in Reactor.
 -
 
-more later...
+TBD
 
-- documentation
-- tests 
-- something more...
+## ChangeLog
+
+##### 08.12.2022: OpenUI support added
